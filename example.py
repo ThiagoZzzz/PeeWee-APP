@@ -14,6 +14,8 @@ Gestor.añadir_existencias(1, 20)
 
 Gestor.restar_existencias(3, 40)
 
+Gestor.cambiar_precio(6, 7.55)
+
 Gestor.mostrar_categoria("Categoría B")
 
 Gestor.desconectar()

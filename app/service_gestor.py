@@ -65,6 +65,15 @@ class Gestor_de_Productos():
             listado.append(producto_dict)
         return listado
 
+    def __set_precio(self, id, nuevo_precio):
+        producto = Producto.get_or_none(Producto.id == id)
+        if producto:
+                producto.precio = nuevo_precio
+                producto.save()
+                return producto.nombre, producto.precio
+        else:
+            raise ValueError(f"id {id} no encontrado dentro del inventario.")
+
     def mostrar_listado(self):
         print(f"Los productos del inventario son:")
         for i in self.__listar_productos():
@@ -80,6 +89,9 @@ class Gestor_de_Productos():
 
     def restar_existencias(self, id, num_existencias):
         print(f"Existencias restantes del producto {self.__quitar_existencias(id, num_existencias)}.")
+
+    def cambiar_precio(self, id, nuevo_precio):
+        print(f"El precio del prodcuto se ha actualizado: {self.__set_precio(id, nuevo_precio)}.")
 
     def desconectar(self):
         if not self.db.is_closed():
