@@ -25,6 +25,15 @@ class Gestor_de_Productos():
             raise ValueError(f"id {id} no encontrado dentro del inventario.")
         return producto
 
+    def __set_precio(self, id, nuevo_precio):
+        producto = Producto.get_or_none(Producto.id == id)
+        if producto:
+                producto.precio = nuevo_precio
+                producto.save()
+                return producto.nombre, producto.precio
+        else:
+            raise ValueError(f"id {id} no encontrado dentro del inventario.")
+
     def __añadir_existencias(self, id, nuevas_existencias):
         producto = Producto.get_or_none(Producto.id == id)
         if producto:
@@ -72,15 +81,6 @@ class Gestor_de_Productos():
             }
             listado.append(producto_dict)
         return listado
-
-    def __set_precio(self, id, nuevo_precio):
-        producto = Producto.get_or_none(Producto.id == id)
-        if producto:
-                producto.precio = nuevo_precio
-                producto.save()
-                return producto.nombre, producto.precio
-        else:
-            raise ValueError(f"id {id} no encontrado dentro del inventario.")
 
     def agregar_producto(self, nombre, descripcion, precio, categoria, existencias):
         print(f"\nEl producto: {self.__insertar_producto(nombre, descripcion, precio, categoria, existencias).nombre}, fue agregado al inventario.")
